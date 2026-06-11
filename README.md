@@ -63,7 +63,7 @@ extract_raw → store_raw
 ```
 
 - Schedule : `@hourly`
-- Devises : EUR/USD, EUR/GBP, EUR/JPY, EUR/CHF (configurable via Variable `forex_currencies`)
+- Devises : EUR/USD, EUR/GBP, EUR/JPY, EUR/CHF, EUR/AUD (configurable via Variable `forex_currencies`)
 - Seuil d'alerte : 2% (configurable via Variable `forex_alert_threshold`)
 - Fraîcheur max : 6h (configurable via Variable `forex_freshness_hours`)
 

@@ -3,7 +3,7 @@
 import json, urllib.request, datetime, sys
 
 API = "https://api.frankfurter.app"
-CURRENCIES = ["USD", "GBP", "JPY", "CHF"]
+CURRENCIES = ["USD", "GBP", "JPY", "CHF", "AUD"]
 BASE = "EUR"
 
 today = datetime.date.today()

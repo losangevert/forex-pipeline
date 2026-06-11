@@ -87,7 +87,7 @@ create_airflow_variables() {
     info "Création des Variables Airflow..."
 
     # Devises à suivre (séparées par des virgules)
-    airflow variables set 'forex_currencies' 'EUR,USD,GBP,JPY,CHF' || true
+    airflow variables set 'forex_currencies' 'EUR,USD,GBP,JPY,CHF,AUD' || true
 
     # Seuil d'alerte de variation (en %)
     airflow variables set 'forex_alert_threshold' '2.0' || true

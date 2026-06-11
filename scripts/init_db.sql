@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS exchange_rates (
     target_currency VARCHAR(3) NOT NULL,
     ingested_at     TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     dag_run_id      VARCHAR(255),
-    UNIQUE (currency_pair, rate_date, ingested_at)
+    UNIQUE (currency_pair, rate_date)
 );
 
 -- 3. Cimetière de données : lignes invalides rejetées

@@ -27,7 +27,7 @@ from airflow.models import Variable, Connection
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 
 # ─── Configuration ────────────────────────────────────────────────
-_DEFAULT_CURRENCIES = "EUR,USD,GBP,JPY,CHF"
+_DEFAULT_CURRENCIES = "EUR,USD,GBP,JPY,CHF,AUD"
 _DEFAULT_ALERT_THRESHOLD = 2.0         # % de variation déclenchant une alerte
 _DEFAULT_FRESHNESS_HOURS = 6           # heures max depuis la dernière ingestion
 _API_BASE = "https://api.frankfurter.app"
@@ -248,7 +248,7 @@ def load_valid(validated: dict, **context) -> int:
             (currency_pair, rate_date, rate, base_currency, target_currency,
              ingested_at, dag_run_id)
         VALUES (%s, %s, %s, %s, %s, NOW(), %s)
-        ON CONFLICT (currency_pair, rate_date, ingested_at) DO NOTHING
+        ON CONFLICT (currency_pair, rate_date) DO NOTHING
     """
 
     for r in rows:
