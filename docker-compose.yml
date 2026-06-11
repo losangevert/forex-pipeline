@@ -26,20 +26,8 @@ services:
     command:
       - -c
       - |
-        mkdir -p /opt/airflow/dags /opt/airflow/scripts
-        airflow db init
-        # Créer la Connection PostgreSQL
-        airflow connections add 'postgres_forex' \
-          --conn-type 'postgres' \
-          --conn-host 'postgres' \
-          --conn-port 5432 \
-          --conn-schema 'forex' \
-          --conn-login 'airflow' \
-          --conn-password 'airflow_forex_2026'
-        # Créer les Variables Airflow
-        airflow variables set 'forex_currencies' 'EUR,USD,GBP,JPY,CHF'
-        airflow variables set 'forex_alert_threshold' '2.0'
-        airflow variables set 'forex_freshness_hours' '6'
+        chmod +x /opt/airflow/scripts/setup.sh
+        /opt/airflow/scripts/setup.sh
     depends_on:
       postgres:
         condition: service_healthy
@@ -48,8 +36,14 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
       AIRFLOW__WEBSERVER__RBAC: "false"
+      PG_HOST: postgres
+      PG_PORT: 5432
+      PG_DB: forex
+      PG_USER: airflow
+      PG_PASS: airflow_forex_2026
     volumes:
       - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
       - airflow_data:/opt/airflow
 
   airflow-scheduler:
@@ -64,6 +58,7 @@ services:
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
     volumes:
       - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
       - airflow_data:/opt/airflow
     restart: unless-stopped
 
@@ -81,6 +76,7 @@ services:
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
     volumes:
       - ./dags:/opt/airflow/dags
+      - ./scripts:/opt/airflow/scripts
       - airflow_data:/opt/airflow
     restart: unless-stopped
 
