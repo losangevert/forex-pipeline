@@ -77,10 +77,100 @@ extract_raw → store_raw
 | Unicité      | Contrainte UNIQUE + ON CONFLICT DO NOTHING           |
 | Structure    | Vérification de la clé `rates` dans la réponse API   |
 
-## Vues Metabase
+## Vues SQL et Graphiques Metabase
 
-- `v_last_30d_trend` — tendance quotidienne par paire avec variation en %
-- `v_top_weekly_variations` — top 20 des plus fortes variations sur 7 jours
+### `v_last_30d_trend` — Tendance des taux sur 30 jours
+
+```sql
+SELECT currency_pair, rate_date, rate, daily_pct_change
+FROM v_last_30d_trend
+ORDER BY currency_pair, rate_date;
+```
+
+**Colonnes :**
+| Champ | Description |
+|---|---|
+| `currency_pair` | Paire de devises (ex: EUR/USD) |
+| `rate_date` | Date du taux |
+| `rate` | Taux de change |
+| `daily_pct_change` | Variation en % par rapport à la veille |
+
+**Usage Metabase :** `+ New > Question > SQL query`
+- **Line chart :** Axe X = `rate_date`, Axe Y = `rate`, Série = `currency_pair`
+- Affiche l'évolution des 5 paires simultanément
+- On peut aussi filtrer par paire pour un graphique individuel
+
+**Lecture métier :**
+- Tendance haussière → devise de base (EUR) se renforce
+- Tendance baissière → devise de base s'affaiblit
+- Forte variation quotidienne → événement macroéconomique
+
+---
+
+### `v_top_weekly_variations` — Variations les plus fortes sur 7 jours
+
+```sql
+SELECT currency_pair, rate_date, abs_variation
+FROM v_top_weekly_variations
+WHERE abs_variation IS NOT NULL
+ORDER BY abs_variation DESC
+LIMIT 20;
+```
+
+**Colonnes :**
+| Champ | Description |
+|---|---|
+| `currency_pair` | Paire de devises |
+| `rate_date` | Date de la variation |
+| `abs_variation` | Écart absolu |
+
+**Usage Metabase :**
+- **Bar chart :** Axe X = `currency_pair`, Axe Y = `abs_variation`
+- Met en évidence les jours de forte volatilité
+
+**Lecture métier :**
+- Identifie les paires les plus volatiles
+- Repère les crises / annonces impactant le forex
+- Utile pour backtesting de stratégies de trading
+
+---
+
+### Dashboard "Taux de change — Suivi"
+
+6 graphiques pré-construits dans Metabase :
+
+| Graphique | Type | Intérêt |
+|---|---|---|
+| EUR/USD — 30j | Courbe | Paire la plus échangée au monde |
+| EUR/GBP — 30j | Courbe | Brexit & relations UK/EU |
+| EUR/JPY — 30j | Courbe | Yen comme valeur refuge |
+| EUR/CHF — 30j | Courbe | Franc suisse, safe haven |
+| Toutes paires — 30j | Courbes superposées | Comparaison directe |
+| Top variations hebdo | Barres | Alertes visuelles |
+
+### Dashboard "Pipeline — Monitoring"
+
+| Graphique | Type | Intérêt |
+|---|---|---|
+| Derniers logs pipeline | Tableau | Vérifier l'exécution du DAG |
+| Alertes taux de change | Tableau | Lire les alertes déclenchées |
+
+---
+
+### Créer ses propres graphiques
+
+Dans Metabase (admin@forex.local / admin1234) :
+
+1. `+ New > Question > SQL query`
+2. Coller une requête SQL (voir ci-dessus)
+3. Cliquer sur **Visualize**
+4. Choisir le type de graphique (Line, Bar, Table...)
+5. `Save` → choisir un dashboard existant
+
+Conseils :
+- Filtrer par `currency_pair` pour isoler une paire
+- Ajouter `WHERE rate_date >= '2026-06-01'` pour une période spécifique
+- Utiliser `AVG(rate)` et `GROUP BY rate_date` pour des moyennes mobiles
 
 ## Fichiers
 
