@@ -14,14 +14,16 @@ prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 
-# Couleurs
+# Couleurs (thème clair)
+BG = RGBColor(0xFF, 0xFF, 0xFF)
+BLUE = RGBColor(0x15, 0x65, 0xC0)
 DARK = RGBColor(0x1a, 0x1a, 0x2e)
-BLUE = RGBColor(0x00, 0x6d, 0xaa)
-LIGHT = RGBColor(0xf0, 0xf4, 0xf8)
-GREEN = RGBColor(0x2e, 0x7d, 0x32)
-ORANGE = RGBColor(0xe6, 0x5c, 0x00)
+GREEN = RGBColor(0x2E, 0x7D, 0x32)
+ORANGE = RGBColor(0xE6, 0x5C, 0x00)
 WHITE = RGBColor(0xFF, 0xFF, 0xFF)
-GRAY = RGBColor(0x66, 0x66, 0x66)
+GRAY = RGBColor(0x55, 0x55, 0x55)
+LIGHTGRAY = RGBColor(0x88, 0x88, 0x88)
+SECTION = RGBColor(0xF5, 0xF5, 0xF5)
 
 def add_bg(slide, color):
     bg = slide.background
@@ -36,7 +38,7 @@ def add_shape(slide, left, top, width, height, color, alpha=None):
     shape.line.fill.background()
     return shape
 
-def add_text_box(slide, left, top, width, height, text, size=18, color=WHITE, bold=False, align=PP_ALIGN.LEFT):
+def add_text_box(slide, left, top, width, height, text, size=18, color=DARK, bold=False, align=PP_ALIGN.LEFT):
     txBox = slide.shapes.add_textbox(left, top, width, height)
     tf = txBox.text_frame
     tf.word_wrap = True
@@ -48,7 +50,7 @@ def add_text_box(slide, left, top, width, height, text, size=18, color=WHITE, bo
     p.alignment = align
     return txBox
 
-def add_bullet_slide(slide, items, left=0.8, top=1.8, width=11.5, size=20, color=WHITE, spacing=Pt(6)):
+def add_bullet_slide(slide, items, left=0.8, top=1.8, width=11.5, size=20, color=DARK, spacing=Pt(6)):
     txBox = slide.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(5))
     tf = txBox.text_frame
     tf.word_wrap = True
@@ -80,12 +82,12 @@ def slide_number(slide, num, total=10):
 # SLIDE 1 — Titre
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_shape(slide, Inches(0), Inches(0), Inches(13.333), Inches(0.15), BLUE)
 add_shape(slide, Inches(0), Inches(7.35), Inches(13.333), Inches(0.15), BLUE)
 
 add_text_box(slide, Inches(1), Inches(1.5), Inches(11), Inches(1.2),
-             "Suivi des taux de change multi-devises", size=40, color=WHITE, bold=True)
+             "Suivi des taux de change multi-devises", size=40, color=BLUE, bold=True)
 add_text_box(slide, Inches(1), Inches(2.8), Inches(11), Inches(0.6),
              "Plateforme d'orchestration Airflow • Frankfurter API • Metabase", size=22, color=BLUE)
 
@@ -102,9 +104,9 @@ add_text_box(slide, Inches(1), Inches(6.2), Inches(11), Inches(0.5),
 # SLIDE 2 — Contexte & Objectifs
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "Contexte & Objectifs", size=32, color=WHITE, bold=True)
+             "Contexte & Objectifs", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), BLUE)
 speaker_tag(slide, "Orateur 1 — 2 min")
 slide_number(slide, 2)
@@ -123,15 +125,15 @@ add_bullet_slide(slide, [
     "",
     "⚙️ Stack technique : Airflow 2.10.5 / PostgreSQL 16 / Metabase",
     "      Docker Compose • VPS OVH • GitHub",
-], size=20, color=WHITE)
+], size=20, color=DARK)
 
 # ============================================================
 # SLIDE 3 — Architecture
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "Architecture technique", size=32, color=WHITE, bold=True)
+             "Architecture technique", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), BLUE)
 speaker_tag(slide, "Orateur 1 — 1 min")
 slide_number(slide, 3)
@@ -169,9 +171,9 @@ add_text_box(slide, Inches(1), Inches(6.0), Inches(11), Inches(0.8),
 # SLIDE 4 — DAG Airflow
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "Pipeline Airflow (DAG)", size=32, color=WHITE, bold=True)
+             "Pipeline Airflow (DAG)", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), BLUE)
 speaker_tag(slide, "Orateur 2 — 2 min")
 slide_number(slide, 4)
@@ -232,9 +234,9 @@ add_text_box(slide, Inches(0.8), Inches(5.3), Inches(11), Inches(1.5),
 # SLIDE 5 — Contrôle qualité
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "Contrôle qualité des données", size=32, color=WHITE, bold=True)
+             "Contrôle qualité des données", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), BLUE)
 speaker_tag(slide, "Orateur 2 — 1 min 30")
 slide_number(slide, 5)
@@ -254,15 +256,15 @@ qc_items = [
     "",
     "📊  Pipeline log : 1 entrée par exécution (status, reçues, valides, rejetées, insérées)",
 ]
-add_bullet_slide(slide, qc_items, size=17, color=WHITE)
+add_bullet_slide(slide, qc_items, size=17, color=DARK)
 
 # ============================================================
 # SLIDE 6 — Alertes
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "Détection d'anomalies (Alertes)", size=32, color=WHITE, bold=True)
+             "Détection d'anomalies (Alertes)", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), BLUE)
 speaker_tag(slide, "Orateur 2 — 1 min")
 slide_number(slide, 6)
@@ -280,15 +282,15 @@ add_bullet_slide(slide, [
     "       • Exemples : crise, annonce macroéconomique, décision de banque centrale",
     "",
     "💾  Écriture dans la table rate_alerts (devise, avant, après, écart)",
-], size=18, color=WHITE)
+], size=18, color=DARK)
 
 # ============================================================
 # SLIDE 7 — KPIs Metabase
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "KPIs & Dashboards Metabase", size=32, color=WHITE, bold=True)
+             "KPIs & Dashboards Metabase", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), BLUE)
 speaker_tag(slide, "Orateur 3 — 1 min 30")
 slide_number(slide, 7)
@@ -308,15 +310,15 @@ add_bullet_slide(slide, [
     "       • v_top_weekly_variations : top 20 variations absolues",
     "",
     "🎯  Questions libres possibles : requêtes SQL personnalisées",
-], size=18, color=WHITE)
+], size=18, color=DARK)
 
 # ============================================================
 # SLIDE 8 — Robustesse
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "Choix de robustesse", size=32, color=WHITE, bold=True)
+             "Choix de robustesse", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), BLUE)
 speaker_tag(slide, "Orateur 3 — 1 min")
 slide_number(slide, 8)
@@ -336,15 +338,15 @@ add_bullet_slide(slide, [
     "       (devises, seuils, URL API — sans redéploiement)",
     "",
     "📝  Log complet de chaque exécution (pipeline_log)",
-], size=18, color=WHITE)
+], size=18, color=DARK)
 
 # ============================================================
 # SLIDE 9 — Démo
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "Démonstration", size=32, color=WHITE, bold=True)
+             "Démonstration", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), ORANGE)
 speaker_tag(slide, "Équipe — 5 min")
 slide_number(slide, 9)
@@ -361,18 +363,18 @@ add_bullet_slide(slide, [
     "",
     "4.  Dashboards Metabase",
     "       Graphiques d'évolution + monitoring pipeline",
-], size=20, color=WHITE)
+], size=20, color=DARK)
 
 # ============================================================
 # SLIDE 10 — Conclusion
 # ============================================================
 slide = prs.slides.add_slide(prs.slide_layouts[6])
-add_bg(slide, DARK)
+add_bg(slide, BG)
 add_shape(slide, Inches(0), Inches(0), Inches(13.333), Inches(0.15), BLUE)
 add_shape(slide, Inches(0), Inches(7.35), Inches(13.333), Inches(0.15), BLUE)
 
 add_text_box(slide, Inches(0.8), Inches(0.7), Inches(11), Inches(0.8),
-             "Conclusion", size=32, color=WHITE, bold=True)
+             "Conclusion", size=32, color=BLUE, bold=True)
 add_shape(slide, Inches(0.8), Inches(1.4), Inches(3), Inches(0.04), BLUE)
 slide_number(slide, 10)
 
@@ -388,7 +390,7 @@ add_bullet_slide(slide, [
     "✅  Déploiement Docker sur VPS OVH",
     "",
     "📦  Code source : https://github.com/losangevert/forex-pipeline",
-], size=20, color=WHITE)
+], size=20, color=DARK)
 
 # Questions slide
 add_text_box(slide, Inches(0.8), Inches(5.5), Inches(11), Inches(0.8),
