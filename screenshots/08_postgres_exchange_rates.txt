@@ -1,0 +1,22 @@
+currency_pair | rate_date | rate | dag_run_id
+------------------------------------------------
+EUR/AUD | 2026-05-11 | 1.624900 | historical_backfill
+EUR/AUD | 2026-05-12 | 1.625200 | historical_backfill
+EUR/AUD | 2026-05-13 | 1.615800 | historical_backfill
+EUR/AUD | 2026-05-14 | 1.616200 | historical_backfill
+EUR/AUD | 2026-05-15 | 1.626500 | historical_backfill
+EUR/AUD | 2026-05-16 | 1.626500 | historical_backfill
+EUR/AUD | 2026-05-17 | 1.626500 | historical_backfill
+EUR/AUD | 2026-05-18 | 1.625600 | historical_backfill
+EUR/AUD | 2026-05-19 | 1.632700 | historical_backfill
+EUR/AUD | 2026-05-20 | 1.627100 | historical_backfill
+EUR/AUD | 2026-05-21 | 1.627300 | historical_backfill
+EUR/AUD | 2026-05-22 | 1.628300 | historical_backfill
+EUR/AUD | 2026-05-23 | 1.628300 | historical_backfill
+EUR/AUD | 2026-05-24 | 1.628300 | historical_backfill
+EUR/AUD | 2026-05-25 | 1.624000 | historical_backfill
+EUR/AUD | 2026-05-26 | 1.623600 | historical_backfill
+EUR/AUD | 2026-05-27 | 1.632100 | historical_backfill
+EUR/AUD | 2026-05-28 | 1.631800 | historical_backfill
+EUR/AUD | 2026-05-29 | 1.623800 | historical_backfill
+EUR/AUD | 2026-05-30 | 1.623800 | historical_backfill

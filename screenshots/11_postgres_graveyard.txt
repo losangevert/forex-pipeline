@@ -1,0 +1,12 @@
+id | currency_pair | rate_date | rate_value | rejection_reason | raw_line | rejected_at | dag_run_id
+-------------------------------------------------------------------------------------------------------
+1 | EUR/AUD | 2026-06-10 | 1.6475 | DB_INSERT_ERROR: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ | {'rate': 1.6475, 'rate_date': '2026-06-10', 'base_currency': 'EUR', 'currency_pair': 'EUR/AUD', 'target_currency': 'AUD'} | 2026-06-11 09:01:56.711181+00:00 | manual__2026-06-11T09:01:44+00:00
+2 | EUR/CHF | 2026-06-10 | 0.9222 | DB_INSERT_ERROR: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ | {'rate': 0.9222, 'rate_date': '2026-06-10', 'base_currency': 'EUR', 'currency_pair': 'EUR/CHF', 'target_currency': 'CHF'} | 2026-06-11 09:01:56.750285+00:00 | manual__2026-06-11T09:01:44+00:00
+3 | EUR/GBP | 2026-06-10 | 0.86228 | DB_INSERT_ERROR: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ | {'rate': 0.86228, 'rate_date': '2026-06-10', 'base_currency': 'EUR', 'currency_pair': 'EUR/GBP', 'target_currency': 'GBP'} | 2026-06-11 09:01:56.778621+00:00 | manual__2026-06-11T09:01:44+00:00
+4 | EUR/JPY | 2026-06-10 | 185.19 | DB_INSERT_ERROR: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ | {'rate': 185.19, 'rate_date': '2026-06-10', 'base_currency': 'EUR', 'currency_pair': 'EUR/JPY', 'target_currency': 'JPY'} | 2026-06-11 09:01:56.819030+00:00 | manual__2026-06-11T09:01:44+00:00
+5 | EUR/USD | 2026-06-10 | 1.1539 | DB_INSERT_ERROR: there is no unique or exclusion constraint matching the ON CONFLICT specification
+ | {'rate': 1.1539, 'rate_date': '2026-06-10', 'base_currency': 'EUR', 'currency_pair': 'EUR/USD', 'target_currency': 'USD'} | 2026-06-11 09:01:56.849150+00:00 | manual__2026-06-11T09:01:44+00:00

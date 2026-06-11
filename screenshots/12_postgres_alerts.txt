@@ -1,0 +1,2 @@
+id | currency_pair | previous_rate | current_rate | absolute_change | pct_change | threshold_used | alert_date | dag_run_id
+------------------------------------------------------------------------------------------------------------------------------
