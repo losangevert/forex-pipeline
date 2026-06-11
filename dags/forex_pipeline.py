@@ -30,7 +30,6 @@ from airflow.providers.postgres.hooks.postgres import PostgresHook
 _DEFAULT_CURRENCIES = "EUR,USD,GBP,JPY,CHF,AUD"
 _DEFAULT_ALERT_THRESHOLD = 2.0         # % de variation déclenchant une alerte
 _DEFAULT_FRESHNESS_HOURS = 6           # heures max depuis la dernière ingestion
-_API_BASE = "https://api.frankfurter.app"
 _API_TIMEOUT = 30                      # secondes
 
 logger = logging.getLogger(__name__)
@@ -42,6 +41,11 @@ def _get_config(key: str, default: Any) -> Any:
         return Variable.get(key, default_var=default)
     except Exception:
         return default
+
+
+def _get_api_base() -> str:
+    """URL de l'API de taux de change (Variable ou défaut)."""
+    return _get_config("forex_api_base", "https://api.frankfurter.app")
 
 
 def _get_pg_conn() -> tuple[str, int, str, str, str]:
@@ -83,7 +87,8 @@ def extract_raw(**context) -> dict:
     targets_list = [c for c in currencies if c != base_currency]
     targets = ",".join(targets_list) if targets_list else "USD"
 
-    url = f"{_API_BASE}/latest?from={base_currency}&to={targets}"
+    api_base = _get_api_base()
+    url = f"{api_base}/latest?from={base_currency}&to={targets}"
     logger.info("Extraction depuis %s", url)
 
     try:

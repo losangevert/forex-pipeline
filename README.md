@@ -65,6 +65,7 @@ extract_raw → store_raw
 - Schedule : `@hourly`
 - Devises : EUR/USD, EUR/GBP, EUR/JPY, EUR/CHF, EUR/AUD (configurable via Variable `forex_currencies`)
 - Seuil d'alerte : 2% (configurable via Variable `forex_alert_threshold`)
+- URL API : `forex_api_base` (défaut : `https://api.frankfurter.app`)
 - Fraîcheur max : 6h (configurable via Variable `forex_freshness_hours`)
 
 ## Contrôles qualité

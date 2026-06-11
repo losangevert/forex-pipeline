@@ -95,6 +95,9 @@ create_airflow_variables() {
     # Seuil de fraîcheur (heures max depuis la date API)
     airflow variables set 'forex_freshness_hours' '6' || true
 
+    # URL de base de l'API Frankfurter
+    airflow variables set 'forex_api_base' 'https://api.frankfurter.app' || true
+
     info "Variables Airflow créées."
 }
 
