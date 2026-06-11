@@ -9,6 +9,9 @@ from pptx.util import Inches, Pt, Emu
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
+import os
+
+SCREENSHOTS = os.path.join(os.path.dirname(__file__) or ".", os.pardir, "screenshots")
 
 prs = Presentation()
 prs.slide_width = Inches(13.333)
@@ -73,6 +76,16 @@ def speaker_tag(slide, name, left=0.8, top=0.3):
     tag.text_frame.paragraphs[0].font.color.rgb = WHITE
     tag.text_frame.paragraphs[0].font.bold = True
     tag.text_frame.paragraphs[0].alignment = PP_ALIGN.LEFT
+
+def add_image(slide, name, left, top, width, height=None):
+    path = os.path.join(SCREENSHOTS, name)
+    if os.path.exists(path):
+        if height:
+            slide.shapes.add_picture(path, Inches(left), Inches(top), Inches(width), Inches(height))
+        else:
+            slide.shapes.add_picture(path, Inches(left), Inches(top), Inches(width))
+        return True
+    return False
 
 def slide_number(slide, num, total=10):
     add_text_box(slide, Inches(12.3), Inches(7.0), Inches(0.8), Inches(0.4),
@@ -230,6 +243,9 @@ add_text_box(slide, Inches(0.8), Inches(5.3), Inches(11), Inches(1.5),
              "🛡️ Retries + timeouts : extract_raw (x2), load_valid (x2), log_pipeline (x2)",
              size=16, color=GRAY)
 
+# Image du DAG
+add_image(slide, "01_airflow_graph.png", 0.5, 6.0, 12, 1.3)
+
 # ============================================================
 # SLIDE 5 — Contrôle qualité
 # ============================================================
@@ -312,6 +328,10 @@ add_bullet_slide(slide, [
     "🎯  Questions libres possibles : requêtes SQL personnalisées",
 ], size=18, color=DARK)
 
+# Captures d'écran des dashboards Metabase
+add_image(slide, "06_metabase_dashboard1.png", 0.8, 5.0, 5.5, 2.3)
+add_image(slide, "07_metabase_dashboard2.png", 6.8, 5.0, 5.5, 2.3)
+
 # ============================================================
 # SLIDE 8 — Robustesse
 # ============================================================
@@ -364,6 +384,8 @@ add_bullet_slide(slide, [
     "4.  Dashboards Metabase",
     "       Graphiques d'évolution + monitoring pipeline",
 ], size=20, color=DARK)
+# Miniature du DAG Airflow (run réussi)
+add_image(slide, "03_airflow_grid.png", 1.0, 5.0, 11, 2.2)
 
 # ============================================================
 # SLIDE 10 — Conclusion
