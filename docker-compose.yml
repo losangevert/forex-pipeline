@@ -36,6 +36,7 @@ services:
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
       AIRFLOW__WEBSERVER__SECRET_KEY: forex_pipeline_secret_key_2026
+      AIRFLOW__WEBSERVER__SESSION_BACKEND: securecookie
       AIRFLOW__CORE__FERNET_KEY: M3EBOX840298eOpTu7qBRLVIVlM8m7VrhPu0vx3OUTA=
       PG_HOST: postgres
       PG_PORT: 5432
@@ -72,6 +73,7 @@ services:
       <<: *airflow-common
     volumes:
       - ./dags:/opt/airflow/dags
+      - ./webserver_config.py:/opt/airflow/webserver_config.py
       - airflow_data:/opt/airflow
     restart: unless-stopped
 
