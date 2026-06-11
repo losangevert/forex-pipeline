@@ -98,7 +98,20 @@ create_airflow_variables() {
     info "Variables Airflow créées."
 }
 
-# ─── 7. Vérification finale ───
+# ─── 7. Création utilisateur admin Airflow ───
+create_admin_user() {
+    info "Création de l'utilisateur admin Airflow..."
+    airflow users create \
+        --username admin \
+        --firstname Admin \
+        --lastname Forex \
+        --role Admin \
+        --email admin@forex.local \
+        --password admin 2>/dev/null || warn "Utilisateur admin déjà existant."
+    info "Utilisateur admin créé (admin / admin)."
+}
+
+# ─── 8. Vérification finale ───
 verify() {
     info "Vérification..."
     echo ""
@@ -125,6 +138,7 @@ main() {
     init_airflow_db
     create_airflow_connection
     create_airflow_variables
+    create_admin_user
     verify
 
     echo ""

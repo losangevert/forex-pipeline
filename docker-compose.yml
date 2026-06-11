@@ -31,11 +31,12 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    environment:
+    environment: &airflow-common
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_forex_2026@postgres:5432/forex
       AIRFLOW__CORE__EXECUTOR: LocalExecutor
       AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
-      AIRFLOW__WEBSERVER__RBAC: "false"
+      AIRFLOW__WEBSERVER__SECRET_KEY: forex_pipeline_secret_key_2026
+      AIRFLOW__CORE__FERNET_KEY: M3EBOX840298eOpTu7qBRLVIVlM8m7VrhPu0vx3OUTA=
       PG_HOST: postgres
       PG_PORT: 5432
       PG_DB: forex
@@ -53,12 +54,9 @@ services:
       airflow-init:
         condition: service_completed_successfully
     environment:
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_forex_2026@postgres:5432/forex
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
+      <<: *airflow-common
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./scripts:/opt/airflow/scripts
       - airflow_data:/opt/airflow
     restart: unless-stopped
 
@@ -71,12 +69,9 @@ services:
       airflow-init:
         condition: service_completed_successfully
     environment:
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_forex_2026@postgres:5432/forex
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
-      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
+      <<: *airflow-common
     volumes:
       - ./dags:/opt/airflow/dags
-      - ./scripts:/opt/airflow/scripts
       - airflow_data:/opt/airflow
     restart: unless-stopped
 
